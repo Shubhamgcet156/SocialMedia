@@ -2,4 +2,16 @@
 <h1>
     codial/profile page
 </h1>
-    
+
+<!-- console.log(user) -->
+<p><%= user.name %></p>
+<p><%= user.email%></p>
+<section id="feed-posts">
+    <h4>POSTS</h4>
+    <form action="/posts/create" id="new-post-form" method="post">
+        <textarea name="content" id="" cols="30" rows="3" placeholder="Type Here....."></textarea>
+        <input type="submit" value="Post">
+    </form>
+
+</section>
+
