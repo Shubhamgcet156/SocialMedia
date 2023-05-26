@@ -1,17 +1,27 @@
 <link rel="stylesheet" href="/css/user_profile.css">
 <h1>
-    codial/profile page
+    Codial/profile page
 </h1>
 
 <!-- console.log(user) -->
-<p><%= user.name %></p>
-<p><%= user.email%></p>
-<section id="feed-posts">
+
+<!-- <section id="feed-posts">
     <h4>POSTS</h4>
     <form action="/posts/create" id="new-post-form" method="post">
         <textarea name="content" id="" cols="30" rows="3" placeholder="Type Here....."></textarea>
         <input type="submit" value="Post">
     </form>
 
-</section>
+</section> -->
+<%if (user.id==profile_user.id){%>
+    <form action="/users/update/<%=profile_user.id%>" method="post">
+        <input type="text" name="name" placeholder="Your Name" value="<%= profile_user.name%>" required>
+        <input type="email" name="email" placeholder="Your Email" value="<%= profile_user.email%>" required>
+        <input type="submit" value="Update">
+    </form>
+<%}else{%>
+    <p><%= profile_user.name %></p>
+    <p><%= profile_user.email%></p>
+
+<%}%>
 

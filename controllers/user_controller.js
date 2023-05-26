@@ -1,9 +1,25 @@
 const User=require('../models/user');
 
+//lets keep it same as before
 module.exports.profile=function(req,res){
-    return res.render('user_profile',{
-        title:'Home'
-    });
+    User.findById(req.params.id).then((user)=>{
+        return res.render('user_profile',{
+            title:'Home',
+            profile_user:user
+        });
+    })
+    
+}
+
+module.exports.update=function(req,res){
+    if(req.user.id==req.params.id){
+        User.findByIdAndUpdate(req.params.id,req.body).then((user)=>{
+            return res.redirect('back')
+        })
+    }else{
+        return res.status(401).send('Unauthorized')
+    }
+    
 }
 
 
@@ -73,8 +89,9 @@ module.exports.create=function(req,res){
 }
 //sign in and create an create an session for user
 module.exports.createSession=function(req,res){
+    req.flash('success','Logged In Successfully');
     //Todo Later
-    return res.redirect('/')
+    return res.redirect('/');
 }
 
 module.exports.destroySession=function(req,res){
@@ -82,6 +99,7 @@ module.exports.destroySession=function(req,res){
 //     return res.redirect('/');
 //
     req.logout(function(err) {
+        req.flash('success','You have Logged out');
         if (err) { return next(err); }
         return res.redirect('/');
     });
